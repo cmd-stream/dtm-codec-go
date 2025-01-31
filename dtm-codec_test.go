@@ -1,8 +1,9 @@
 package dcodec
 
 import (
-	"dtm-codec-go/testdata/mock"
 	"testing"
+
+	"github.com/cmd-stream/dtm-codec-go/testdata/mock"
 
 	"github.com/cmd-stream/base-go"
 	com "github.com/mus-format/common-go"

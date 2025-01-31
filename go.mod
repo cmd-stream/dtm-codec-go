@@ -1,4 +1,4 @@
-module dtm-codec-go
+module github.com/cmd-stream/dtm-codec-go
 
 go 1.23.3
 

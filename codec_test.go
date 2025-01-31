@@ -1,9 +1,10 @@
 package dcodec
 
 import (
-	"dtm-codec-go/testdata/mock"
 	"errors"
 	"testing"
+
+	"github.com/cmd-stream/dtm-codec-go/testdata/mock"
 
 	"github.com/cmd-stream/transport-go"
 	transport_mock "github.com/cmd-stream/transport-go/testdata/mock"
