@@ -1,4 +1,4 @@
-module dtm-codecs-go
+module dtm-codec-go
 
 go 1.23.3
 

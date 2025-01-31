@@ -1,7 +1,7 @@
 package dcodec
 
 import (
-	"dtm-codecs-go/testdata/mock"
+	"dtm-codec-go/testdata/mock"
 	"testing"
 
 	"github.com/cmd-stream/base-go"
