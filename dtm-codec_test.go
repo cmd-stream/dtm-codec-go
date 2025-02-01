@@ -22,7 +22,7 @@ func TestDTMCodec(t *testing.T) {
 					}),
 				}
 			)
-			_, err := CreateClientCodec[any](us)
+			_, err := NewClientCodec[any](us)
 			assert_error.EqualError(err, wantErr, t)
 		})
 
@@ -36,21 +36,21 @@ func TestDTMCodec(t *testing.T) {
 					}),
 				}
 			)
-			_, err := CreateServerCodec[any](us)
+			_, err := NewServerCodec[any](us)
 			assert_error.EqualError(err, wantErr, t)
 		})
 
-	t.Run("CreateClientCodec should return codec", func(t *testing.T) {
+	t.Run("NewClientCodec should return codec", func(t *testing.T) {
 		var (
 			us = []Unmarshaller[base.Result]{
 				mock.NewUnmarshaller[base.Result]().RegisterN_DTM(2, func() (dtm com.DTM) {
 					return 0
 				}),
 			}
-			wantCodec, _ = NewCodec[base.Cmd[int]](us)
+			wantCodec, _ = New[base.Cmd[int]](us)
 			wantErr      error
 		)
-		codec, err := CreateClientCodec[any](us)
+		codec, err := NewClientCodec[any](us)
 		assert_error.EqualError(err, wantErr, t)
 
 		for i := 0; i < len(codec.us); i++ {
@@ -60,17 +60,17 @@ func TestDTMCodec(t *testing.T) {
 		}
 	})
 
-	t.Run("CreateServerCodec should return codec", func(t *testing.T) {
+	t.Run("NewServerCodec should return codec", func(t *testing.T) {
 		var (
 			us = []Unmarshaller[base.Cmd[any]]{
 				mock.NewUnmarshaller[base.Cmd[any]]().RegisterN_DTM(2, func() (dtm com.DTM) {
 					return 0
 				}),
 			}
-			wantCodec, _ = NewCodec[base.Result](us)
+			wantCodec, _ = New[base.Result](us)
 			wantErr      error
 		)
-		codec, err := CreateServerCodec[any](us)
+		codec, err := NewServerCodec[any](us)
 		assert_error.EqualError(err, wantErr, t)
 
 		for i := 0; i < len(codec.us); i++ {

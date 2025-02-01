@@ -16,7 +16,7 @@ import (
 
 func TestCodec(t *testing.T) {
 
-	t.Run("NewCodec should fail if receives invalid slice", func(t *testing.T) {
+	t.Run("New should fail if receives invalid slice", func(t *testing.T) {
 		var (
 			wantErr = NewIncorrectUnmarshallersError(NewDTMNotEqualIndexError(2, 1))
 			u0      = mock.NewUnmarshaller[any]().RegisterDTM(func() (dtm com.DTM) {
@@ -26,7 +26,7 @@ func TestCodec(t *testing.T) {
 				return 2
 			})
 			mocks  = []*mok.Mock{u0.Mock, u1.Mock}
-			_, err = NewCodec[any, any]([]Unmarshaller[any]{u0, u1})
+			_, err = New[any, any]([]Unmarshaller[any]{u0, u1})
 		)
 		assert_error.EqualError(err, wantErr, t)
 
@@ -35,15 +35,15 @@ func TestCodec(t *testing.T) {
 		}
 	})
 
-	t.Run("NewCodec should fail if receives empty slice", func(t *testing.T) {
+	t.Run("New should fail if receives empty slice", func(t *testing.T) {
 		wantErr := NewIncorrectUnmarshallersError(NewNilItemError(0))
-		_, err := NewCodec[any, any]([]Unmarshaller[any]{nil})
+		_, err := New[any, any]([]Unmarshaller[any]{nil})
 		assert_error.EqualError(err, wantErr, t)
 	})
 
-	t.Run("NewCodec should fail if receives a nil Unmarshaller", func(t *testing.T) {
+	t.Run("New should fail if receives a nil Unmarshaller", func(t *testing.T) {
 		wantErr := NewIncorrectUnmarshallersError(EmptySliceErr)
-		_, err := NewCodec[any, any](nil)
+		_, err := New[any, any](nil)
 		assert_error.EqualError(err, wantErr, t)
 	})
 
@@ -56,7 +56,7 @@ func TestCodec(t *testing.T) {
 					return 0
 				})
 				mocks    = []*mok.Mock{u0.Mock}
-				codec, _ = NewCodec[int, any]([]Unmarshaller[any]{u0})
+				codec, _ = New[int, any]([]Unmarshaller[any]{u0})
 			)
 			err := codec.Encode(param, nil)
 			assert_error.EqualError(err, wantErr, t)
@@ -75,7 +75,7 @@ func TestCodec(t *testing.T) {
 				m = mock.NewMarshaller().RegisterMarshal(
 					func(w transport.Writer) error { return wantErr })
 				mocks    = []*mok.Mock{u0.Mock, m.Mock}
-				codec, _ = NewCodec[any]([]Unmarshaller[any]{u0})
+				codec, _ = New[any]([]Unmarshaller[any]{u0})
 			)
 			err := codec.Encode(m, nil)
 			assert_error.EqualError(err, wantErr, t)
@@ -100,7 +100,7 @@ func TestCodec(t *testing.T) {
 					return 0
 				})
 				mocks    = []*mok.Mock{r.Mock, u0.Mock}
-				codec, _ = NewCodec[any]([]Unmarshaller[any]{u0})
+				codec, _ = New[any]([]Unmarshaller[any]{u0})
 			)
 			result, err := codec.Decode(r)
 			assert_error.Equal(result, wantResult, t)
@@ -126,7 +126,7 @@ func TestCodec(t *testing.T) {
 					return 0
 				})
 				mocks    = []*mok.Mock{r.Mock, u0.Mock}
-				codec, _ = NewCodec[any]([]Unmarshaller[any]{u0})
+				codec, _ = New[any]([]Unmarshaller[any]{u0})
 			)
 			result, err := codec.Decode(r)
 			assert_error.Equal(result, wantResult, t)
@@ -158,7 +158,7 @@ func TestCodec(t *testing.T) {
 				return
 			})
 			mocks    = []*mok.Mock{u0.Mock, u1.Mock, u2.Mock}
-			codec, _ = NewCodec[any]([]Unmarshaller[int]{u0, u1, u2})
+			codec, _ = New[any]([]Unmarshaller[int]{u0, u1, u2})
 		)
 		result, err := codec.Decode(r)
 		assert_error.Equal(result, wantResult, t)

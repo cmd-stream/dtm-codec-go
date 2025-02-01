@@ -2,7 +2,7 @@ package dcodec
 
 import "github.com/cmd-stream/base-go"
 
-// CreateClientCodec initializes a cmd-stream client codec.
+// NewClientCodec initializes a cmd-stream client codec.
 //
 // It accepts a slice of Unmarshallers, where each Unmarshaller's DTM value
 // must match its position in the slice. Example of a correct slice:
@@ -25,12 +25,12 @@ import "github.com/cmd-stream/base-go"
 //	}
 //
 // Returns an error if the provided slice is invalid.
-func CreateClientCodec[T any](us []Unmarshaller[base.Result]) (
+func NewClientCodec[T any](us []Unmarshaller[base.Result]) (
 	Codec[base.Cmd[T], base.Result], error) {
-	return NewCodec[base.Cmd[T], base.Result](us)
+	return New[base.Cmd[T], base.Result](us)
 }
 
-// CreateServerCodec initializes a cmd-stream server codec.
+// NewServerCodec initializes a cmd-stream server codec.
 //
 // It accepts a slice of Unmarshallers, where each Unmarshaller's DTM value
 // must match its position in the slice. Example of a correct slice:
@@ -53,7 +53,7 @@ func CreateClientCodec[T any](us []Unmarshaller[base.Result]) (
 //	}
 //
 // Returns an error if the provided slice is invalid.
-func CreateServerCodec[T any](us []Unmarshaller[base.Cmd[T]]) (
+func NewServerCodec[T any](us []Unmarshaller[base.Cmd[T]]) (
 	Codec[base.Result, base.Cmd[T]], error) {
-	return NewCodec[base.Result, base.Cmd[T]](us)
+	return New[base.Result, base.Cmd[T]](us)
 }

@@ -5,8 +5,8 @@ import (
 	dts "github.com/mus-format/mus-stream-dts-go"
 )
 
-// NewCodec creates a new Codec.
-func NewCodec[T, V any](us []Unmarshaller[V]) (codec Codec[T, V], err error) {
+// New creates a new Codec.
+func New[T, V any](us []Unmarshaller[V]) (codec Codec[T, V], err error) {
 	err = check(us)
 	if err != nil {
 		err = NewIncorrectUnmarshallersError(err)
