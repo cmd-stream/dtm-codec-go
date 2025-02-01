@@ -4,6 +4,10 @@ dtm-codec-go provides client and server codecs for cmd-stream-go.
 # How To Use
 1. Define DTMs:
 ```go
+import (
+	com "github.com/mus-format/common-go"
+)
+
 const(
   Cmd1DTM com.DTM = iota
   Cmd2DTM
@@ -19,6 +23,10 @@ const(
 
 2. Create DTM support variables for Commands and Results using [mus-stream-dts-go](https://github.com/mus-format/mus-stream-dts-go):
 ```go
+import (
+  dts "github.com/mus-format/mus-stream-dts-go"
+)
+
 var (
   Cmd1DTS = dts.New[Cmd1DTS](Cmd1DTM, ...)
   Cmd2DTS = dts.New[Cmd2DTS](Cmd1DTM, ...)
@@ -32,6 +40,12 @@ var (
 
 3. Create codecs:
 ```go
+import (
+  dcodec "github.com/cmd-stream/dtm-codec-go"
+  "github.com/cmd-stream/base-go"
+)
+
+...
 clientCodec, err := dcodec.NewClientCodec[Receiver](
   []dcodec.Unmarshaller[base.Result]{ // Elements must be arranged in ascending 
   // order based on their DTM values.
@@ -40,6 +54,7 @@ clientCodec, err := dcodec.NewClientCodec[Receiver](
     ...
   },
 )
+...
 
 serverCodec, err := dcodec.NewServerCodec(
   []dcodec.Unmarshaller[base.Cmd[Receiver]]{ // Elements must be arranged in ascending 
@@ -49,4 +64,5 @@ serverCodec, err := dcodec.NewServerCodec(
     ...
   },
 )
+...
 ```
