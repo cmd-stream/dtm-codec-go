@@ -35,8 +35,8 @@ func (c Codec[T, V]) Decode(r transport.Reader) (v V, err error) {
 		return
 	}
 	i := int(dtm)
-	if i > len(c.us)-1 {
-		err = UnexpectedErr
+	if i < 0 || i > len(c.us)-1 {
+		err = NewUnexpectedDTMError(dtm)
 		return
 	}
 	v, _, err = c.us[i].Unmarshal(r)

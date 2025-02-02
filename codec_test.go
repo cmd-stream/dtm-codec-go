@@ -1,14 +1,16 @@
 package dcodec
 
 import (
+	"bytes"
 	"errors"
 	"testing"
 
 	"github.com/cmd-stream/dtm-codec-go/testdata/mock"
-
 	"github.com/cmd-stream/transport-go"
+
 	transport_mock "github.com/cmd-stream/transport-go/testdata/mock"
 	com "github.com/mus-format/common-go"
+	dts "github.com/mus-format/mus-stream-dts-go"
 	muss "github.com/mus-format/mus-stream-go"
 	assert_error "github.com/ymz-ncnk/assert/error"
 	"github.com/ymz-ncnk/mok"
@@ -114,11 +116,12 @@ func TestCodec(t *testing.T) {
 	t.Run("Codec.Decode should return UnexpectedErr for too large DTM value",
 		func(t *testing.T) {
 			var (
+				dtm        = com.DTM(10)
 				wantResult any
-				wantErr    = UnexpectedErr
+				wantErr    = NewUnexpectedDTMError(dtm)
 				r          = transport_mock.NewReader().RegisterReadByte(
 					func() (b byte, err error) {
-						b = 10
+						b = byte(dtm)
 						return
 					},
 				)
@@ -128,6 +131,47 @@ func TestCodec(t *testing.T) {
 				mocks    = []*mok.Mock{r.Mock, u0.Mock}
 				codec, _ = New[any]([]Unmarshaller[any]{u0})
 			)
+			result, err := codec.Decode(r)
+			assert_error.Equal(result, wantResult, t)
+			assert_error.EqualError(err, wantErr, t)
+
+			if infomap := mok.CheckCalls(mocks); len(infomap) > 0 {
+				t.Error(infomap)
+			}
+		})
+
+	t.Run("Codec.Decode should return UnexpectedErr for negative DTM value",
+		func(t *testing.T) {
+			var (
+				dtm        = com.DTM(-1)
+				wantResult any
+				wantErr    = NewUnexpectedDTMError(dtm)
+				buf        = bytes.NewBuffer(make([]byte, 0, dts.SizeDTM(dtm)))
+			)
+			if _, err := dts.MarshalDTM(dtm, buf); err != nil {
+				t.Fatal(err)
+			}
+			var (
+				bs = buf.Bytes()
+				u0 = mock.NewUnmarshaller[any]().RegisterDTM(func() (dtm com.DTM) {
+					return 0
+				})
+				r = transport_mock.NewReader()
+			)
+			// TODO
+			for i := 0; i < len(bs); i++ {
+				r.RegisterReadByte(
+					func() (b byte, err error) {
+						b = bs[i]
+						return
+					},
+				)
+			}
+			var (
+				mocks    = []*mok.Mock{u0.Mock, r.Mock}
+				codec, _ = New[any]([]Unmarshaller[any]{u0})
+			)
+
 			result, err := codec.Decode(r)
 			assert_error.Equal(result, wantResult, t)
 			assert_error.EqualError(err, wantErr, t)
