@@ -1,4 +1,9 @@
 # dtm-codec-go
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/cmd-stream/dtm-codec-go.svg)](https://pkg.go.dev/github.com/cmd-stream/dtm-codec-go)
+[![GoReportCard](https://goreportcard.com/badge/cmd-stream/dtm-codec-go)](https://goreportcard.com/report/github.com/cmd-stream/dtm-codec-go)
+[![codecov](https://codecov.io/gh/cmd-stream/dtm-codec-go/graph/badge.svg?token=6JVVHR8QHF)](https://codecov.io/gh/cmd-stream/dtm-codec-go)
+
 dtm-codec-go provides client and server codecs for cmd-stream-go.
 
 # How To Use
