@@ -6,7 +6,7 @@
 
 dtm-codec-go provides client and server codecs for cmd-stream-go.
 
-# How To Use
+# How To
 1. Define DTMs:
 ```go
 import (
