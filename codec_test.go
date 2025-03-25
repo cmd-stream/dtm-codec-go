@@ -146,9 +146,9 @@ func TestCodec(t *testing.T) {
 				dtm        = com.DTM(-1)
 				wantResult any
 				wantErr    = NewUnexpectedDTMError(dtm)
-				buf        = bytes.NewBuffer(make([]byte, 0, dts.SizeDTM(dtm)))
+				buf        = bytes.NewBuffer(make([]byte, 0, dts.DTMSer.Size(dtm)))
 			)
-			if _, err := dts.MarshalDTM(dtm, buf); err != nil {
+			if _, err := dts.DTMSer.Marshal(dtm, buf); err != nil {
 				t.Fatal(err)
 			}
 			var (

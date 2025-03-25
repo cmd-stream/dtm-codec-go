@@ -30,7 +30,7 @@ func (c Codec[T, V]) Encode(t T, w transport.Writer) (err error) {
 }
 
 func (c Codec[T, V]) Decode(r transport.Reader) (v V, err error) {
-	dtm, _, err := dts.UnmarshalDTM(r)
+	dtm, _, err := dts.DTMSer.Unmarshal(r)
 	if err != nil {
 		return
 	}
