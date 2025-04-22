@@ -26,10 +26,10 @@ const(
 )
 ```
 
-2. Create DTM support variables for Commands and Results using [mus-stream-dts-go](https://github.com/mus-format/mus-stream-dts-go):
+2. Create DTM support variables for Commands and Results using [dts-stream-go](https://github.com/mus-format/dts-stream-go):
 ```go
 import (
-  dts "github.com/mus-format/mus-stream-dts-go"
+  dts "github.com/mus-format/dts-stream-go"
 )
 
 var (

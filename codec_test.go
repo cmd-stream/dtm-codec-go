@@ -10,7 +10,7 @@ import (
 
 	transport_mock "github.com/cmd-stream/transport-go/testdata/mock"
 	com "github.com/mus-format/common-go"
-	dts "github.com/mus-format/mus-stream-dts-go"
+	dts "github.com/mus-format/dts-stream-go"
 	muss "github.com/mus-format/mus-stream-go"
 	assert_error "github.com/ymz-ncnk/assert/error"
 	"github.com/ymz-ncnk/mok"

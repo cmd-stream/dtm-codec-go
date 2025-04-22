@@ -2,7 +2,7 @@ package dcodec
 
 import (
 	"github.com/cmd-stream/transport-go"
-	dts "github.com/mus-format/mus-stream-dts-go"
+	dts "github.com/mus-format/dts-stream-go"
 )
 
 // New creates a new Codec.

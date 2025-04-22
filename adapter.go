@@ -3,7 +3,7 @@ package dcodec
 import (
 	"github.com/cmd-stream/base-go"
 	com "github.com/mus-format/common-go"
-	dts "github.com/mus-format/mus-stream-dts-go"
+	dts "github.com/mus-format/dts-stream-go"
 	muss "github.com/mus-format/mus-stream-go"
 )
 
