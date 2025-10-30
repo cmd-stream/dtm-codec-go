@@ -4,13 +4,19 @@
 [![GoReportCard](https://goreportcard.com/badge/cmd-stream/dtm-codec-go)](https://goreportcard.com/report/github.com/cmd-stream/dtm-codec-go)
 [![codecov](https://codecov.io/gh/cmd-stream/dtm-codec-go/graph/badge.svg?token=6JVVHR8QHF)](https://codecov.io/gh/cmd-stream/dtm-codec-go)
 
-dtm-codec-go provides client and server codecs for cmd-stream-go.
+> ⚠️ **Deprecated**  
+> This package is deprecated and no longer maintained.  
+> Use [`codec-mus-stream-go`](https://github.com/cmd-stream/codec-mus-stream-go) instead.
+
+**dtm-codec-go** provides client and server codecs for cmd-stream-go.
 
 # How To
+
 1. Define DTMs:
+
 ```go
 import (
-	com "github.com/mus-format/common-go"
+ com "github.com/mus-format/common-go"
 )
 
 const(
@@ -27,6 +33,7 @@ const(
 ```
 
 2. Create DTM support variables for Commands and Results using [dts-stream-go](https://github.com/mus-format/dts-stream-go):
+
 ```go
 import (
   dts "github.com/mus-format/dts-stream-go"
@@ -44,6 +51,7 @@ var (
 ```
 
 3. Create codecs:
+
 ```go
 import (
   dcodec "github.com/cmd-stream/dtm-codec-go"
@@ -71,3 +79,4 @@ serverCodec, err := dcodec.NewServerCodec(
 )
 ...
 ```
+
