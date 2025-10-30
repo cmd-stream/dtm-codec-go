@@ -7,8 +7,8 @@
 > ⚠️ **Deprecated**  
 > This package is deprecated and no longer maintained.  
 > Use [codec-json-go](https://github.com/cmd-stream/codec-json-go),
-> [codec-protobuf-go](https://github.com/cmd-stream/codec-protobuf-go),
-> [codec-mus-stream-go](https://github.com/cmd-stream/codec-mus-stream-go),
+> [codec-protobuf-go](https://github.com/cmd-stream/codec-protobuf-go) or
+> [codec-mus-stream-go](https://github.com/cmd-stream/codec-mus-stream-go)
 > instead.
 
 **dtm-codec-go** provides client and server codecs for cmd-stream-go.
